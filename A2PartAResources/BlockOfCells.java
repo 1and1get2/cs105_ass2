@@ -14,6 +14,7 @@ public class BlockOfCells {
     public static final int NUMBER_OF_COLS = A2Constants.NUMBER_OF_COLS;
     public static final int CELL_SIZE = A2Constants.CELL_SIZE;
     public static final Rectangle GAME_AREA = A2Constants.GAME_AREA;
+    public static final Color[] COLOURS = A2Constants.COLOURS;
     
     private Cell[][] cellBlock;
     
@@ -93,6 +94,12 @@ public class BlockOfCells {
 // Draw the 2D array of coloured cells
 //-------------------------------------------------------
     public void drawCells(Graphics g) { 
-        
+        //g.fillRect(x, y, width, height)
+    	for (int i = 0; i < cellBlock.length; i++){
+    		for (int j = 0; j < cellBlock[i].length; j++){
+    			g.setColor(COLOURS[cellBlock[i][j].getColourIndex()]);
+    			g.fillRect(cellBlock[i][j].getArea().x, cellBlock[i][j].getArea().y, cellBlock[i][j].getArea().width, cellBlock[i][j].getArea().height);
+    		}
+    	}
     }
 }
