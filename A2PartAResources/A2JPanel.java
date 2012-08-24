@@ -60,7 +60,16 @@ public class A2JPanel extends JPanel implements ActionListener, MouseListener, K
 // restartGame.txt
 //-------------------------------------------------------  
     private void storeGame(String fileName) {
-        
+        try {
+        	BufferedWriter bw = new BufferedWriter(new FileWriter(new File(fileName)));
+			bw.write(gameHasEnded + " " + userHasWon + " " + turnsRemaining + " " + numberConnected + "\n");
+			bw.write(cells.colourIndexesToString());
+			bw.close();
+			System.out.println("Stored to game: " + fileName + " " + cells.colourIndexesToString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     private void loadGame(String fileName) {

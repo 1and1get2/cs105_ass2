@@ -168,7 +168,7 @@ public class BlockOfCells {
 		String info = "";
 		for (int i = 0; i < cellBlock.length; i++) {
 			for (int j = 0; j < cellBlock[i].length; j++) {
-				info += cellBlock[i][j].getColourIndex();
+				info += cellBlock[i][j].getColourIndex() + " ";
 			}
 		}
 		// System.out.println(info);
