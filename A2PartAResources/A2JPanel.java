@@ -65,7 +65,7 @@ public class A2JPanel extends JPanel implements ActionListener, MouseListener, K
 			bw.write(gameHasEnded + " " + userHasWon + " " + turnsRemaining + " " + numberConnected + "\n");
 			bw.write(cells.colourIndexesToString());
 			bw.close();
-			System.out.println("Stored to game: " + fileName + " " + cells.colourIndexesToString());
+			// System.out.println("Stored to game: " + fileName + " " + cells.colourIndexesToString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
