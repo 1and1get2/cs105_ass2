@@ -67,12 +67,12 @@ public class BlockOfCells {
 			}
 		}
 	}
-	
-	//-------------------------------------------------------
+
+	// -------------------------------------------------------
 	// Stage 5 (10 marks) Recursive method which returns the number of
 	// cells connected (i.e., with the same colour index as the
 	// top left cell (0, 0))
-	//-------------------------------------------------------
+	// -------------------------------------------------------
 	// -------------------------------------------------------
 	// returns the number of cells connected
 	// to the top left cell (position 0, 0)
@@ -99,9 +99,28 @@ public class BlockOfCells {
 		updateUserAreaColours(0, 0, updateColourIndex, colourToChangeIndex);
 	}
 
+	/*
+	 * Stage 4 updateUserAreaColours() – 10 marks
+	 *
+	 * This instance method is called whenever the user chooses a new colour by
+	 * pressing one of the Colour buttons. This method should update the colour
+	 * of all the cells connected to the top left cell (0, 0) to the new colour
+	 * selected by the user. Note that each cell has 4 adjacent (i.e.,
+	 * connected) neighbours (except for the border cells). Note that each cell
+	 * stores the index of its fill colour (index of one of the colours in the
+	 * COLOURS array). To complete this method you should use a recursive
+	 * algorithm. Once you have completed stage 4, the user should be able to
+	 * fill the grid with colour by pressing the Colour buttons.
+	 */
 	private void updateUserAreaColours(int row, int col, int updateColourIndex,
 			int colourToChangeIndex) {
-
+		if (cellBlock[row][col].getColourIndex() == colourToChangeIndex) {
+			if(row < NUMBER_OF_ROWS-1) updateUserAreaColours(row+1, col, updateColourIndex, colourToChangeIndex);
+			//if(row > 0) updateUserAreaColours(row-1, col, updateColourIndex, colourToChangeIndex);
+			if(col < NUMBER_OF_COLS-1) updateUserAreaColours(row, col+1, updateColourIndex, colourToChangeIndex);
+			//if(col > 0) updateUserAreaColours(row, col-1, updateColourIndex, colourToChangeIndex);
+			cellBlock[row][col].setColourIndex(updateColourIndex);
+		}
 	}
 
 	// -------------------------------------------------------
