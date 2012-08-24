@@ -77,6 +77,24 @@ public class BlockOfCells {
 	// returns the number of cells connected
 	// to the top left cell (position 0, 0)
 	// -------------------------------------------------------
+
+	/*
+	 * Stage 5 getNumberOfCellsInUserBlock() – 10 marks This instance method is
+	 * called after the colour in the cells has been changed (i.e., after the
+	 * user has pressed one of the Colour buttons). This method returns the
+	 * number of cells which have the same colour as the top left cell (0, 0)
+	 * and are connected to the top left cell. Note that each cell has 4
+	 * adjacent (i.e., connected) neighbours (except for the border cells). Note
+	 * that each cell stores the index of its colour (index of one of the
+	 * colours in the COLOURS array). To complete this method you should use a
+	 * recursive algorithm. Once you have completed stage 5, you should see the
+	 * current number of connected cells in the JPanel on the right of the grid
+	 * of cells. This number should change depending on how many connected cells
+	 * there are.
+	 */
+
+	// why that we must use recursive algorithm since we can use for loop in a
+	// much simpler way
 	public int getNumberOfConnectedCells() {
 		int colourIndex = getCellColourIndex(0, 0);
 		resetCellHasBeenVisited();
@@ -84,8 +102,20 @@ public class BlockOfCells {
 	}
 
 	private int getNumberOfCellsInUserBlock(int row, int col, int colourIndex) {
-
-		return 0; // may need to be changed
+		if (cellBlock[row][col].getHasBeenVisited())
+			return 0;
+		cellBlock[row][col].setHasBeenVisited(true);
+		int rowCounter = 0, colCounter = 0;
+		if (cellBlock[row][col].getColourIndex() == colourIndex) {
+			if (row < NUMBER_OF_ROWS - 1)
+				rowCounter = getNumberOfCellsInUserBlock(row + 1, col,
+						colourIndex);
+			if (col < NUMBER_OF_COLS - 1)
+				colCounter = getNumberOfCellsInUserBlock(row, col + 1,
+						colourIndex);
+			return rowCounter + colCounter + 1;
+		}// may need to be changed
+		return 0;
 	}
 
 	// -------------------------------------------------------
@@ -101,7 +131,7 @@ public class BlockOfCells {
 
 	/*
 	 * Stage 4 updateUserAreaColours() – 10 marks
-	 *
+	 * 
 	 * This instance method is called whenever the user chooses a new colour by
 	 * pressing one of the Colour buttons. This method should update the colour
 	 * of all the cells connected to the top left cell (0, 0) to the new colour
@@ -115,10 +145,16 @@ public class BlockOfCells {
 	private void updateUserAreaColours(int row, int col, int updateColourIndex,
 			int colourToChangeIndex) {
 		if (cellBlock[row][col].getColourIndex() == colourToChangeIndex) {
-			if(row < NUMBER_OF_ROWS-1) updateUserAreaColours(row+1, col, updateColourIndex, colourToChangeIndex);
-			//if(row > 0) updateUserAreaColours(row-1, col, updateColourIndex, colourToChangeIndex);
-			if(col < NUMBER_OF_COLS-1) updateUserAreaColours(row, col+1, updateColourIndex, colourToChangeIndex);
-			//if(col > 0) updateUserAreaColours(row, col-1, updateColourIndex, colourToChangeIndex);
+			if (row < NUMBER_OF_ROWS - 1)
+				updateUserAreaColours(row + 1, col, updateColourIndex,
+						colourToChangeIndex);
+			// if(row > 0) updateUserAreaColours(row-1, col, updateColourIndex,
+			// colourToChangeIndex);
+			if (col < NUMBER_OF_COLS - 1)
+				updateUserAreaColours(row, col + 1, updateColourIndex,
+						colourToChangeIndex);
+			// if(col > 0) updateUserAreaColours(row, col-1, updateColourIndex,
+			// colourToChangeIndex);
 			cellBlock[row][col].setColourIndex(updateColourIndex);
 		}
 	}
