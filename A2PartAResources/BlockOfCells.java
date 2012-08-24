@@ -21,7 +21,6 @@ public class BlockOfCells {
 	public BlockOfCells() {
 		cellBlock = new Cell[NUMBER_OF_ROWS][NUMBER_OF_COLS];
 		createBlockOfCells(cellBlock);
-
 	}
 
 	private void createBlockOfCells(Cell[][] cellBlock) {
@@ -160,12 +159,19 @@ public class BlockOfCells {
 	}
 
 	// -------------------------------------------------------
-	// returns a String with all the colour indexes
-	// concatenated, row by row
+	// Stage 6 (4 marks) 
+	// returns a String with all the colour
+	// indexes of the cells concatenated, row by row
+	// -------------------------------------------------------
 	// -------------------------------------------------------
 	public String colourIndexesToString() {
 		String info = "";
-
+		for (int i = 0; i < cellBlock.length; i++) {
+			for (int j = 0; j < cellBlock[i].length; j++) {
+				info += cellBlock[i][j].getColourIndex();
+			}
+		}
+		// System.out.println(info);
 		return info;
 	}
 
