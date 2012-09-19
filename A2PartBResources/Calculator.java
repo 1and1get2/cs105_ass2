@@ -17,10 +17,11 @@ class Calculator{
 }
 
 class Program{
-	final String ALL_VALID = "0123456789+-/*()[]{}";
-	final String PARENTHESES = "()";
-	final String OPERATORS = "+_*/";
-	
+//	final String ALL_VALID = "0123456789+-/*()[]{}";
+	final String PARENTHESES = "()[]{}";
+	final String OPERATORS = "+-*/";
+	final String DIGITS = "1234567890";
+	final String ALL_VALID = PARENTHESES + OPERATORS + DIGITS;
 	
 	public void start(String infix){
 		System.out.println("Infix Expression: " + infix);
@@ -61,9 +62,10 @@ class Program{
 					// ignore anything else
 					continue;
 				}
+				//System.out.println("stack: " + stack.toStringForDebugging());
 			} else {										// in valid
 				balancedSoFar = false;
-				status = "invalid input";
+				status = "invalid input: \"" + inputChar + "\"";
 				break;
 			}
 			//System.out.println("stack.isEmpty(): " + stack.isEmpty());
@@ -72,7 +74,7 @@ class Program{
 			//System.out.println("match");
 		} else {
 			balancedSoFar = false;
-			status = "too many open braces";
+			if (status == null) status = "too many open braces";
 		} 
 		if (status != null) System.out.println(status);
 		return balancedSoFar;
