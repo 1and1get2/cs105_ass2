@@ -24,7 +24,7 @@ class Program{
 	
 	public void start(String infix){
 		System.out.println("Infix Expression: " + infix);
-		checkSyntax(infix);
+		if (checkSyntax(infix)) trans(infix);
 	}
 	
 	private boolean checkSyntax(String infix){
@@ -66,12 +66,13 @@ class Program{
 				status = "invalid input";
 				break;
 			}
-			System.out.println("stack.isEmpty(): " + stack.isEmpty());
+			//System.out.println("stack.isEmpty(): " + stack.isEmpty());
 		}
 		if (stack.isEmpty()){
-			System.out.println("match");
+			//System.out.println("match");
 		} else {
-			System.out.println("not match");
+			balancedSoFar = false;
+			status = "too many open braces";
 		} 
 		if (status != null) System.out.println(status);
 		return balancedSoFar;
@@ -81,9 +82,12 @@ class Program{
 		if ((oldChar == '(' && newChar == ')') || 
 				(oldChar == '[' && newChar == ']') || 
 				(oldChar == '{' && newChar == '}' )){
-			System.out.println("match: " + oldChar + " " + newChar);
+			//System.out.println("match: " + oldChar + " " + newChar);
 			return true;
 		}
 		return false;
+	}
+	private void trans(String infix){
+		
 	}
 }
