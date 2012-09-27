@@ -34,12 +34,57 @@ class Program {
 			// check if all put valid
 			char inputChar = infix.charAt(i);
 			if (ALL_VALID.indexOf(inputChar) != -1) { // valid
+				if (infix.indexOf("()") != -1){
+					status = "expression contain empty bracket \'()\'";
+					balancedSoFar = false;
+					break;
+				}
+				if (infix.charAt(0) == ')'){
+					status = "expression begin with /')/'";
+					balancedSoFar = false;
+					break;
+				}
+				if (OPERATORS.indexOf(infix.charAt(0)) != -1){
+					status = "expression begin with operator " + infix.charAt(0);
+					balancedSoFar = false;
+					break;
+				}
+				if (DIGITS.indexOf(infix.charAt(i)) != -1 && i+1 < infix.length() && infix.charAt(i+1) == '('){
+					status = "digit followed by \'(\'";
+					balancedSoFar = false;
+					break;
+				}
+				if (OPERATORS.indexOf(infix.charAt(infix.length()-1)) != -1){
+					status = "expression end with operator " + infix.charAt(0);
+					balancedSoFar = false;
+					break;
+				}
+				if (infix.charAt(i) == '/' && i+1 < infix.length() && infix.charAt(i+1) == 0){
+					status = "division by zero";
+					balancedSoFar = false;
+					break;
+				}
+				if (infix.charAt(infix.length()-1) == '('){
+					status = "expression end with /'(/'";
+					balancedSoFar = false;
+					break;
+				}
 				if (inputChar == '(' || inputChar == '{' || inputChar == '[') {
+					if (i+1 < infix.length() && OPERATORS.indexOf(infix.charAt(i+1)) != -1){
+						status = "\'(\' followed by operator";
+						balancedSoFar = false;
+						break;
+					}
 					// left brackets
 					stack.push(inputChar);
 				} else if (inputChar == ')' || inputChar == '}'
 						|| inputChar == ']') {
 					// right brackets
+					if (i+1 < infix.length() && DIGITS.indexOf(infix.charAt(i+1)) != -1){
+						status = "\')\' followed by digit";
+						balancedSoFar = false;
+						break;
+					}
 					if (stack.isEmpty()) {
 						balancedSoFar = false;
 						status = "No matching open brace";
@@ -55,8 +100,18 @@ class Program {
 							break;
 						}
 					}
+				} else if(OPERATORS.indexOf(infix.charAt(i)) != -1 && i < infix.length()-1 && OPERATORS.indexOf(infix.charAt(i+1)) != -1){
+					// if this and next char are both  operator
+					status = "two consecutive operators";
+					balancedSoFar = false;
+					break;
+				} else if(OPERATORS.indexOf(infix.charAt(i)) != -1 && i < infix.length()-1 && infix.charAt(i+1) == ')'){
+					// if this char is operator and next one is
+					status = "operator followed by \')\'";
+					balancedSoFar = false;
+					break;
 				} else {
-					// ignore anything else
+					// ignore any cases else
 					continue;
 				}
 				// System.out.println("stack: " + stack.toStringForDebugging());
